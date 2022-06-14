@@ -22,7 +22,7 @@ namespace CloudDemo.Controllers
             if (role.ToLower() == "student")
             {
                 HttpClient client = new HttpClient();
-                var response = client.GetAsync($"http://158.101.230.122:8080/exams/examineId/{ID}").Result;
+                var response = client.GetAsync($"http://193.122.67.166:8080/exams/examineId/{ID}").Result;
                 if (response != null)
                 {
                     var StringResponse = response.Content.ReadAsStringAsync().Result;
@@ -40,7 +40,7 @@ namespace CloudDemo.Controllers
         public IActionResult Solve(string ExamID)
         {
             HttpClient client = new HttpClient();
-            var response = client.GetAsync($"http://158.101.230.122:8080/exams/questions/examID/{ExamID}").Result;
+            var response = client.GetAsync($"http://193.122.67.166:8080/exams/questions/examID/{ExamID}").Result;
             var content = response.Content.ReadAsStringAsync().Result;
             List<QuestionModel> questions = JsonSerializer.Deserialize<List<QuestionModel>>(content);
             SolveViewModel model = new SolveViewModel();
@@ -57,7 +57,7 @@ namespace CloudDemo.Controllers
             {
                 var SerializedAnswer= JsonSerializer.Serialize(Answer);
                 var SeriliazedModel = new StringContent(SerializedAnswer, Encoding.UTF8, "application/json");
-                client.PostAsync("http://158.101.230.122:8080/answers", SeriliazedModel);
+                client.PostAsync("http://193.122.67.166:8080/answers", SeriliazedModel);
             }
             return RedirectToAction("Index");
         }

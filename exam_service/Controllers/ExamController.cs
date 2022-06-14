@@ -23,7 +23,7 @@ namespace CloudDemo.Controllers
             if (role.ToLower() == "admin")
             {
                 HttpClient client = new HttpClient();
-                var response = client.GetAsync($"http://158.101.230.122:8080/exams/examinerId/{ID}").Result;
+                var response = client.GetAsync($"http://193.122.67.166:8080/exams/examinerId/{ID}").Result;
                 if(response != null)
                 {
                     var StringResponse = response.Content.ReadAsStringAsync().Result;
@@ -56,7 +56,7 @@ namespace CloudDemo.Controllers
             model.examinerId = HttpContext.Session.GetString("ID");
             model.examineId = model.externalId;
             var SeriliazedModel = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-            var response = client.PostAsync("http://158.101.230.122:8080/exams/generateByType", SeriliazedModel).Result.Content;
+            var response = client.PostAsync("http://193.122.67.166:8080/exams/generateByType", SeriliazedModel).Result.Content;
             return RedirectToAction("Index");
         }
 
@@ -64,7 +64,7 @@ namespace CloudDemo.Controllers
         public IActionResult ShowQuestions(string examid)
         {
             HttpClient client = new HttpClient();
-            var response = client.GetAsync($"http://158.101.230.122:8080/exams/questions/examID/{examid}").Result;
+            var response = client.GetAsync($"http://193.122.67.166:8080/exams/questions/examID/{examid}").Result;
             var content = response.Content.ReadAsStringAsync().Result;
             List<QuestionModel> questions = JsonSerializer.Deserialize<List<QuestionModel>>(content);
             return View("Questions",questions);
